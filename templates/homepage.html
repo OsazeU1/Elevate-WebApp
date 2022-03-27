@@ -1,0 +1,36 @@
+{% extends "template.html" %}
+
+{% block picword %}Hello!{% endblock %}
+
+{% block sidecontent %}
+    <h2> Sign In</h2>
+    <form action = "{{url_for('signedin')}}" method = "post">
+        <div class="form-group">
+            <label for="formGroupExampleInput">Username</label>
+            <input type="text" class="form-control" name="name" placeholder="Enter Username" required>
+        </div>
+
+        <div>
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br>
+    Don't have an account?  
+    <a href="{{ url_for('signup') }}">Click Here</a>
+{% endblock %}
+
+{% block rightHeader %}
+<h2> About This Website: </h2>
+{% endblock %}
+
+{% block map %}
+<img src = "{{url_for('static', filename='pictures/changeHabbits.jpeg')}}" height = "350" width= "450" class="align-self-center mr-3" alt="...">
+{% endblock %}
+
+{% block mapContent %}
+<h5 class="mt-0">How This Works:</h5>
+<p>Sign up or sign in to the website automate your habit tracking and add friends to keep eachother accountable.</p>
+{% endblock %}

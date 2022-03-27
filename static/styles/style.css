@@ -1,0 +1,115 @@
+.header
+{
+    position: relative;
+    text-align: left;
+    color: black;
+}
+
+.bottomMain 
+{
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    transform: translate(-50%, -50%); 
+}
+
+.picContainer
+{
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.navbar
+{
+    background-color: black;
+    display:flex;
+}
+
+.navbar a:hover
+{
+    background-color: White;
+    color: black;
+}
+
+.navbar a
+{
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.centered 
+{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); 
+}
+
+p.round
+{
+    border: 2px black;
+    border-radius: 12px;
+}
+
+.sideCol
+{
+    background-color: #f1f1f1;
+    padding: 20px;
+    flex: 30%;
+}
+
+.rowCon
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main
+{
+    flex: 70%;
+    background-color: white;
+    padding: 20px;
+}
+
+.main2
+{
+    flex: 100%;
+    background-color: white;
+    padding: 20px;
+}
+
+th, td
+{
+    border: 1px solid black;
+}
+
+table
+{
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+@import url(//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css);
+
+.detailBox
+{
+    width: 320px;
+    border: 1px solid #bbb;
+    margin: 50px;
+}
+
+.titleBox
+{
+    background-color: #fdfdfd;
+    padding: 10px;
+}
+
+.titleBox label
+{
+    color:#444;
+    margin:0;
+    display:inline-block;
+}

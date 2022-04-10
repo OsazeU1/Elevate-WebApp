@@ -34,4 +34,4 @@ if defined _OLD_CODEPAGE (
 
 set FLASK_APP=application.py
 set FLASK_DEBUG=1
-set DATABASE_URL=""
+set DATABASE_URL=postgresql://enrjbwpogarfwo:8c48c2461ae5556e202cf036c86a96fdb14272810befb99ac17103c333a14082@ec2-3-218-47-9.compute-1.amazonaws.com:5432/d21fv63o2is7mq

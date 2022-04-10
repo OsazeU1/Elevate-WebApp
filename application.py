@@ -23,14 +23,7 @@ engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 
-@app.route("/")
-def index():
-    if session.get('signed_in'):
-         return render_template("home.html")
-    else:
-         return render_template("home.html")
-
-# All frontend/python calculations done here
+## All frontend/python calculations done here
 @app.route("/pycalcs", methods=["POST"])
 def pycalcs():
 
@@ -72,6 +65,34 @@ def pycalcs():
     # ## if false, check if true, if so add execute sql stuff (happens once)
     # always pass inHabit vairable to the backend regardless of last value
     return({'test_response1': 'success1', 'test_response2': 'success2'})
-    
+
+@app.route("/", methods = ["GET", "POST"])
+def index():
+    if not session.get('logged_in'): 
+        #return render_template("homepage.html")
+        return render_template("home.html")
+    else:
+        habbits = Habbits.query.filter().all() # 'Habbits' query is not defined *********************************
+        return render_template("signedin.html", name=session.get('username'), habbits = habbits)
+        
+
+@app.route("/home", methods = ["GET","POST"])
+def home():
+    #name = request.form.get("name")
+    if not session.get('logged_in'):
+        return render_template("homepage.html")
+    habbits = Habbits.query.filter().all() 
+    return render_template("signedin.html", name=session.get('username'), habbits = habbits)
+
+@app.route("/signup", methods = ["GET","POST"])
+def signup():
+    return render_template("signup.html")
+
+@app.route("/signedin")
+def signedin():
+    if session.get('signed_in'):
+        return ("COMING SOON")
+    else:
+        return ("WORK IN PROGRESS")
 
     

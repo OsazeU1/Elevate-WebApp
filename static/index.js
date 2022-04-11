@@ -6,8 +6,8 @@ let map, infoWindow;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 6,
+    center: { lat: 51.078818919, lng: -114.1304226},
+    zoom: 17,
   });
   infoWindow = new google.maps.InfoWindow();
   //console.log(infoWindow)
@@ -56,16 +56,17 @@ function initMap() {
             center: pos,
             radius: pos.accuracy
         }
+
         userAction();
           infoWindow.setPosition(pos);
           infoWindow.setContent("User location found.");
           infoWindow.open(map);
           map.setCenter(pos);
+
           circle = new google.maps.Circle(userradius)
           setTimeout(function(){
           circle.setMap(null);
           }, 3000);
-
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -93,7 +94,93 @@ window.onload = function(){
     setInterval(function(){
         loc_button[0].click();
     },6000);  // clicking every 10 seconds
+
+  var tfdlcontentString = "Location: TFDL, Habit: Eduction, Status: Not in Range"
+  var tfdlinfowindow = new google.maps.InfoWindow({
+        content: tfdlcontentString
+      });
+       
+    var tfdladius = {
+          strokeColor: '#00FFFF',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#00FFFF',
+          fillOpacity: 0.45,
+          map: map,
+          center: { lat: 51.077271, lng: -114.130058, accuracy: 50},
+          radius: 50
+      }
+    tfdlcircle = new google.maps.Circle(tfdladius)
+
+    tfdlmarker = new google.maps.Marker({
+    position: tfdladius.center,
+    map: map,
+    title: "tfdl marker",
+  });
+
+    tfdlmarker.addListener('click', function() {
+    tfdlinfowindow.open(map, tfdlmarker);
+  });
+
+
+  var gymcontentString = "Location: UofC Active Living, Habit: Fitness, Status: Not in Range"
+  var gyminfowindow = new google.maps.InfoWindow({
+        content: gymcontentString
+      });
+       
+    var gymradius = {
+          strokeColor: '#9F2B68',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#9F2B68',
+          fillOpacity: 0.45,
+          map: map,
+          center: { lat: 51.076340, lng: -114.131520, accuracy: 50},
+          radius: 60
+      }
+    tfdlcircle = new google.maps.Circle(gymradius)
+
+   gymmarker = new google.maps.Marker({
+    position: gymradius.center,
+    map: map,
+    title: "gym marker",
+  });
+
+    gymmarker.addListener('click', function() {
+    gyminfowindow.open(map, gymmarker);
+  });
+
+
+   var eelcontentString = "Location: Energy Environment and Experiential Learning Building, Habit: Fitness, Status: In Range"
+  var eelinfowindow = new google.maps.InfoWindow({
+        content: eelcontentString
+      });
+       
+    var eelradius = {
+          strokeColor: '#0000FF',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#0000FF',
+          fillOpacity: 0.45,
+          map: map,
+          center: { lat: 51.08122, lng: -114.1295, accuracy: 50},
+          radius: 60
+      }
+    eelcircle = new google.maps.Circle(eelradius)
+
+   eelmarker = new google.maps.Marker({
+    position: eelradius.center,
+    map: map,
+    title: "eel marker",
+  });
+
+    eelmarker.addListener('click', function() {
+    eelinfowindow.open(map, eelmarker);
+  });
 };
+
+
+
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);

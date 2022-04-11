@@ -2,6 +2,9 @@ from functions import *
 import os
 import flask
 import requests
+import base64
+import hashlib
+import random
 from flask import Flask, session, render_template, url_for, redirect, request, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -95,4 +98,17 @@ def signedin():
     else:
         return ("WORK IN PROGRESS")
 
+@app.route("/api/generate", methods = ["GET"])
+def generate_hash_key():
+    """
+    @return: A hashkey for use to authenticate agains the API.
+    """
+    message = str(random.getrandbits(256)).encode()
+
+    key = hashlib.sha256(message).hexdigest()
     
+
+    return jsonify({
+        "API Key": key,
+        "username": "User1",
+    })

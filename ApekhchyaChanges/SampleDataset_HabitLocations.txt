@@ -1,0 +1,15 @@
+1	Fitness	University of Calgary Active Living	51.07726482	-114.1324814	Kinesiology Complex, 2500 University Dr NW, Calgary, AB T2N 1N4	30
+2	Fitness	Big Sky Fitness	51.10536684	-114.1878921	5720 Silver Springs Blvd NW #11, Calgary, AB T3B 4N7	25
+3	Fitness	F45 Training Arbour Lake	51.1269441	-114.1959409	150 Crowfoot Crescent NW Unit 323, Calgary, AB T3G 3T2	15
+4	Fitness	Urban Athlete Fitness Studio	51.05707163	-114.0943511	480 14 St NW, Calgary, AB T2N 1Z7	20
+5	Fitness	Hot Fox Fitness	51.01706825	-114.1232964	4230 Quesnay Wood Dr SW, Calgary, AB T3E 7J3	15
+6	Study	Taylor Family Digital Library	51.07758504	-114.129866	410 University Ct NW, Calgary, AB T2N 1N4	35
+7	Study	Bennett Jones Law Library	51.076849	-114.128317	2800 University Way NW, Calgary, AB T2N 4V8	25
+8	Study	Nose Hill Calgary Public Library	51.09651626	-114.1388369	1530 Northmount Dr NW, Calgary, AB T2L 0G6	25
+9	Study	Forest Lawn Calgary Public Library	51.0448218	-113.9652045	4807 8 Ave SE, Calgary, AB T2A 4M1	25
+10	Study	Memorial Park Calgary Public Library	51.04110975	-114.0690932	1221 2 St SW, Calgary, AB T2R 1N8	20
+11	Eating	McDonald's Sunridge	51.07304784	-114.0006864	2665 Sunridge Way NE, Calgary, AB T1Y 7K7	15
+12	Eating	A&W South Trail Crossing	50.931383	-113.9694832	4307 130 Ave SE #190, Calgary, AB T2Z 3V8	15
+13	Eating	La Piccola Napoli Ristorante	50.94313432	-114.0690999	12445 Lake Fraser Dr SE #105, Calgary, AB T2J 7A4	10
+14	Eating	Spot On Kitchen & Bar	51.00623091	-114.1298991	2 Richard Way SW, Calgary, AB T3E 7M9	15
+15	Eating	Angel's Drive In	51.09470586	-114.2112671	8603 47 Ave NW, Calgary, AB T3B 2A1	10

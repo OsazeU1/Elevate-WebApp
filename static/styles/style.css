@@ -113,3 +113,9 @@ table
     margin:0;
     display:inline-block;
 }
+
+.taskDescription
+{
+    margin-top:10px 0;
+}
+

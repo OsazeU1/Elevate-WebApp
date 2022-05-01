@@ -10,9 +10,9 @@ def create_user_polygon(lat, lng, accuracy):
 
 
 def is_overlap(polygon1, polygon2):
-
+    temp = []
     intersect = polygon1.intersection(polygon2)
-    isIntersect = True if len(intersect) > 0 else False
+    isIntersect = True if intersect != temp else False
 
     return [isIntersect, polygon2]
 

@@ -1,16 +1,17 @@
 {% extends "template.html" %}
 
-{% block picword %}Hello!{% endblock %}
+{% block picword %}Elevate Yourself{% endblock %}
 
 {% block sidecontent %}
+<div class="card text-center" style="width:18rem;margin:0 auto;">
     <h2> Sign In</h2>
-    <form action = "{{url_for('signedin')}}" method = "post">
+    <form action = "/user" method = "post">
         <div class="form-group">
             <label for="formGroupExampleInput">Username</label>
-            <input type="text" class="form-control" name="name" placeholder="Enter Username" required>
+            <input type="text" class="form-control" name="username" placeholder="Username" required>
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
             <input type="password" class="form-control" name="password" placeholder="Password" required>
         </div>
@@ -18,8 +19,11 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <br>
-    Don't have an account?  
-    <a href="{{ url_for('signup') }}">Click Here</a>
+
+    <form class="center" action="/register" method="GET">
+        <button class="btn btn-link" type="submit">Don't have an account?</button>
+    </form>
+</div>
 {% endblock %}
 
 {% block rightHeader %}
@@ -27,6 +31,14 @@
 {% endblock %}
 
 {% block map %}
+<!-- <img src = "{{url_for('static', filename='pictures/changeHabbits.jpeg')}}" height = "350" width= "450" class="align-self-center mr-3" alt="..."> -->
+<div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCx6LGuH_cn19MOivZ_hqRP00b56HJfBd8&callback=initMap&v=weekly"
+      async
+    ></script>
 <img src = "{{url_for('static', filename='pictures/changeHabbits.jpeg')}}" height = "350" width= "450" class="align-self-center mr-3" alt="...">
 {% endblock %}
 

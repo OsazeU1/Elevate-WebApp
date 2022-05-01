@@ -3,23 +3,32 @@
 
     <head>
         <title>Elevate</title>
-        <link href = "{{ url_for('static', filename='static/style.css') }}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel = "stylesheet" href = "style.css">
+        <link rel="stylesheet" href="../static/styles/style.css">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize"></script>
+
+        
     </head>
 
         <body>
             <div class = "navbar">
-                <a href = "{{url_for('home')}}" >Home</a>
-                {% if session['logged_in']== True %}
-                <a href = "{{url_for('loggedout')}}" >Logout</a>
-                {% else %}
-                <a href = "{{url_for('signup')}}" >Sign Up</a>
-                {%endif%}
+                <a href = "/" >Home</a>
+                {% if session['logged_in'] == True %}
+                <p>signed in</p>
+                <a href = "/" >Logout</a>
+                {% elif session['logged_in'] == False %}
+                <a href = "/register" >Sign Up</a>
+                {% endif %}
+
             </div>
 
-
+            <div class = "center">
+                <img src= "{{url_for('static', filename='pictures/snowCoveredPeaks.png')}}" style="width:auto;height:100px" alt="Pic of mountains">
+                <h1 class="display-4 textCenter">{% block picword %}{% endblock %}</h1>
+            </div>
 
             <div class="rowCon">
                 <div class = "sideCol">
@@ -29,23 +38,14 @@
                 <div class = "main">
                     {% block rightHeader %}{% endblock %}
 
-                    <div class = "media">
 
-
-                        <div class = "media">
-                            {% block map%}{% endblock %}
-
-                            <div class = "media-body">
-                                {% block mapContent %}{% endblock %}
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-
-
             </div>
 
+            <div class = "main" >
+                {% block map%}{% endblock %}
+
+            </div>
         </body>
 
 </html>

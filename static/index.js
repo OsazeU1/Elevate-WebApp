@@ -38,9 +38,15 @@ function initMap() {
               }
             });
             
-
+          console.log("here");  
           const flaskresponse = await response.json(); //extract JSON from the http response
           console.log(flaskresponse)
+
+          flaskresponse = flaskresponse.parse();
+          
+          // test = flaskresponse['building_lat'];
+          // console.log(test)
+
           // do something with flaskresponse here, probably jsut save inHabit vboolean value
           // and anything that needs to be incremented, no math happens here
         }

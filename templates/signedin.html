@@ -2,17 +2,315 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-{% block picword %} Hello! {{name}}.{% endblock %}
+
+
+
+{% block picword %} Hello, {{name}}! {% endblock %}
+
+
 
 {% block sidecontent %}
+<div class="card text-center" style="width:18rem;margin:0 auto;"></div>
 
-<div class = "detailBox">
-    <div class = "titleBox">
-        <label><strong>Table</strong></label>
-    </div>
-    <div class = "commentBox"></div>
+<h2> Search for users </h2>
+<form class="example" action="/signedin" method = "post">
+    <input type="text" placeholder="Search Usernames..." name="query">
+    <button type="submit"><i class="fa fa-search"></i></button>
+</form><br>
+<h2> Friend Habbits</h2>
+<table>
+        <tr>
+          <th>Friend's User Name</th>
+          <th>Study Habbit Days</th>
+          <th>Fitness Habbit Days</th>
+          <th>Eating Out Habbit Days</th>
+        </tr>
+        <tr>
+          <td>Osaze1</td>
+          <td> 28 </td>
+          <td>17</td>
+          <td> 7 </td>
+        </tr>
+        <tr>
+            <td>Rag1</td>
+            <td> 25 </td>
+            <td>25</td>
+            <td> 11 </td>
+        <tr>
+</table>
+{% endblock %}
+
+
+{% block rightHeader %}
+<h2> About You:  </h2>
+<table>
+        <tr>
+          <th>Habbit Name &nbsp; </th>
+          <th>Times Completed This Month</th>
+        </tr>
+        <tr>
+          <td>Fitness Habit &nbsp; </td>
+          <td> {{streaks[0]}} </td>
+        </tr>
+        <tr>
+          <td>Studying Habit&nbsp; </td>
+          <td> {{streaks[1]}} </td>
+        </tr>
+
+</table>
+<div id="map" style="width: auto; height: 550px; position: relative; overflow: hidden;"></div>
+<script> 
+
+  var map, infoWindow, build_lat, build_lng, build_acc, gymradius, gyminfowindow, gymmarker;
+  
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 51.078818919, lng: -114.1304226},
+          zoom: 17,
+        });
+        infoWindow = new google.maps.InfoWindow();
+        gyminfowindow = new google.maps.InfoWindow();
+        //console.log(infoWindow)
+        const locationButton = document.createElement("button");
+      
+        locationButton.textContent = "Start Tracking";
+        locationButton.classList.add("custom-map-control-button");
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+        locationButton.addEventListener("click", () => {
+          // Try HTML5 geolocation.
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                //console.log(position)
+                const pos = {
+                  //lat: 	53.07786482,
+                  //lng: -114.1324814,
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude,
+                  //accuracy: 20.0
+                  accuracy: position.coords.accuracy
+                };
+      
+                const userAction = async () => {
+                  console.log(pos)
+                  const response = await fetch('http://127.0.0.1:5000/pycalcs', {
+                    method: 'POST',
+                    body: JSON.stringify(pos), // string or object
+                    headers: {
+                      'Content-Type': 'application/json'
+                    }
+                  });
+                  
+                
+                const flaskresponse = await response.json(); //extract JSON from the http response
+                //flaskresponse = flaskresponse.parse();
+                //console.log(flaskresponse)
+
+                build_lat = flaskresponse['building_lat']
+                build_lng = flaskresponse['building_lng']
+                build_acc = flaskresponse['building_acc']
+
+                // do something with flaskresponse here, probably jsut save inHabit vboolean value
+                // and anything that needs to be incremented, no math happens here
+              
+              
+              }
+
+              
+            var userradius = {
+                  strokeColor: '#FF0000',
+                  strokeOpacity: 0.8,
+                  strokeWeight: 2,
+                  fillColor: '#FF0000',
+                  fillOpacity: 0.35,
+                  map: map,
+                  center: pos,
+                  radius: pos.accuracy
+            }
+      
+              userAction();
+
+       
+                infoWindow.setPosition(pos);
+                infoWindow.setContent("User location found.");
+                infoWindow.open(map);
+                map.setCenter(pos);
+      
+                circle = new google.maps.Circle(userradius)
+                setTimeout(function(){
+                circle.setMap(null);
+                }, 3000);
+
+                //console.log("gymradius lat: " + gymradius.center.lat)
+                //console.log("build_lat: " + build_lat)
+
+                //console.log("gymradius lng: " + gymradius.center.lng)
+                //console.log("build_lng: " + build_lng)
+
+                gymcontentString = "Location: UofC Active Living, Habit: Eduction, Status: Not in Range"
+                if ((build_lat == gymradius.center.lat) && (build_lng == gymradius.center.lng)){
+                  //console.log("inside")
+                  gymcontentString = "Location: UofC Active Living, Habit: Eduction, Status: In Range"
+                } 
 
 
 
-</div>
+                gyminfowindow.setPosition(gymradius.center);
+                gyminfowindow.setContent(gymcontentString);
+
+
+
+              //   gymmarker = new google.maps.Marker({
+              //     position: gymradius.center,
+              //     map: map,
+              //     title: "gym marker",
+              //   });
+
+              //   gymmarker.addListener('click', function() {
+              //   gyminfowindow.open(map, gymmarker);
+              // }); 
+                      
+              },
+              () => {
+                handleLocationError(true, infoWindow, map.getCenter());
+              }
+      
+              
+              
+            );
+          } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+          }
+      
+        });
+      
+      
+      }
+      
+      
+      window.onload = function(){
+      
+        //console.log(document.getElementsByClassName('custom-map-control-button'))
+      
+          var loc_button = document.getElementsByClassName('custom-map-control-button');
+          setInterval(function(){
+              loc_button[0].click();
+          },6000);  // clicking every 10 seconds
+      
+        var tfdlcontentString = "Location: TFDL, Habit: Eduction, Status: Not in Range"
+
+            
+        var tfdladius = {
+              strokeColor: '#00FFFF',
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: '#00FFFF',
+              fillOpacity: 0.45,
+              map: map,
+              center: { lat: 51.077271, lng: -114.130058, accuracy: 50},
+              radius: 50
+            }
+          
+        if ((build_lat == tfdladius.center.lat) && (build_lng == tfdladius.center.lng)){
+          console.log("inside")
+          tfdlcontentString = "Location: TFDL, Habit: Eduction, Status: In Range"
+        }
+          
+          var tfdlinfowindow = new google.maps.InfoWindow({
+            content: tfdlcontentString
+          });  
+          tfdlcircle = new google.maps.Circle(tfdladius)
+
+          tfdlmarker = new google.maps.Marker({
+          position: tfdladius.center,
+          map: map,
+          title: "tfdl marker",
+        });
+
+          tfdlmarker.addListener('click', function() {
+          tfdlinfowindow.open(map, tfdlmarker);
+        });
+
+
+        var gymcontentString = "Location: UofC Active Living, Habit: Fitness, Status: Not in Range"
+
+         gymradius = {
+              strokeColor: '#9F2B68',
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: '#9F2B68',
+              fillOpacity: 0.45,
+              map: map,
+              center: { lat: 	51.07726482, lng: -114.1324814, accuracy: 50},
+              radius: 60
+          }
+
+        gyminfowindow = new google.maps.InfoWindow();
+        gyminfowindow.setPosition(gymradius.center);
+        gyminfowindow.setContent(gymcontentString); 
+
+          gymmarker = new google.maps.Marker({
+                  position: gymradius.center,
+                  map: map,
+                  title: "gym marker",
+          });
+
+          gymmarker.addListener('click', function() {
+                  gyminfowindow.open(map, gymmarker);
+                });
+        tfdlcircle = new google.maps.Circle(gymradius)
+
+
+        
+        var eelcontentString = "Location: Energy Environment and Experiential Learning Building, Habit: Fitness, Status: Not in Range"
+        var eelinfowindow = new google.maps.InfoWindow({
+              content: eelcontentString
+            });
+            
+          var eelradius = {
+                strokeColor: '#0000FF',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#0000FF',
+                fillOpacity: 0.45,
+                map: map,
+                center: { lat: 51.08122, lng: -114.1295, accuracy: 50},
+                radius: 60
+            }
+          eelcircle = new google.maps.Circle(eelradius)
+      
+        eelmarker = new google.maps.Marker({
+          position: eelradius.center,
+          map: map,
+          title: "eel marker",
+        });
+      
+          eelmarker.addListener('click', function() {
+          eelinfowindow.open(map, eelmarker);
+        });
+      };
+      
+      
+      
+      
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(
+          browserHasGeolocation
+            ? "Error: The Geolocation service failed."
+            : "Error: Your browser doesn't support geolocation."
+        );
+        infoWindow.open(map);
+      }
+      </script>
+
+
+
+
+        <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+        <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCx6LGuH_cn19MOivZ_hqRP00b56HJfBd8&callback=initMap&v=weekly"
+        async defer></script>
+{% endblock %}
 

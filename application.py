@@ -48,7 +48,7 @@ conn = psycopg2.connect(
 
 cur = conn.cursor()
 
-# routes
+
 @app.route('/', methods=["GET"])
 def index():
     return render_template('homepage.html')
@@ -167,35 +167,35 @@ def pycalcs():
     #print("HEEYYYYYYYYYYYYYYYYYYYYYY")
     #print(polygonsOfInterest)
 
-# get user's tracked habits
-    # remember to convert userid to str
-    userid = "2"  # CHANGE DEPENDING ON NEEDS
-    userhabits_q = "SELECT habitcategory FROM userhabits WHERE userid = '" + str(userid) + "'"
-    userhabits = db.execute(userhabits_q).fetchall()
+# # get user's tracked habits
+#     # remember to convert userid to str
+#     userid = "2"  # CHANGE DEPENDING ON NEEDS
+#     userhabits_q = "SELECT habitcategory FROM userhabits WHERE userid = '" + str(userid) + "'"
+#     userhabits = db.execute(userhabits_q).fetchall()
 
-    # insert habit into array (might be wrong because im not sure what the userhabits format is)
-    uh = []
-    [uh.append(habit) for row in userhabits for habit in row]
+#     # insert habit into array (might be wrong because im not sure what the userhabits format is)
+#     uh = []
+#     [uh.append(habit) for row in userhabits for habit in row]
 
-    # ----------------------------------------------------------------
-    # get habit streak
-    # remember to convert userid AND habitcategory to str
-    userid = "2"  # CHANGE DEPENDING ON NEEDS
-    habitcategory = "Fitness"  # CHANGE DEPENDING ON NEEDS
+#     # ----------------------------------------------------------------
+#     # get habit streak
+#     # remember to convert userid AND habitcategory to str
+#     userid = "2"  # CHANGE DEPENDING ON NEEDS
+#     habitcategory = "Fitness"  # CHANGE DEPENDING ON NEEDS
 
-    userstreak_q = "SELECT habitstreak FROM userhabits WHERE userid = '" + str(userid) + "' AND habitcategory = '"\
-                   + str(habitcategory) + "'"
-    userstreak = db.execute(userstreak_q).fetchall()
+#     userstreak_q = "SELECT habitstreak FROM userhabits WHERE userid = '" + str(userid) + "' AND habitcategory = '"\
+#                    + str(habitcategory) + "'"
+#     userstreak = db.execute(userstreak_q).fetchall()
 
-    # insert habit into array
-    us = []
-    [us.append(streak) for row in userstreak for streak in row]
+#     # insert habit into array
+#     us = []
+#     [us.append(streak) for row in userstreak for streak in row]
 
-    # ----------------------------------------------------------------
-    # updating streak
-    # remember to convert userid AND habitcategory AND new_streak to str
-    userid = "2"  # CHANGE DEPENDING ON NEEDS
-    habitcategory = "Fitness"  # CHANGE DEPENDING ON NEEDS
+#     # ----------------------------------------------------------------
+#     # updating streak
+#     # remember to convert userid AND habitcategory AND new_streak to str
+#     userid = "2"  # CHANGE DEPENDING ON NEEDS
+#     habitcategory = "Fitness"  # CHANGE DEPENDING ON NEEDS
 
     # get data from temp_status
     temp_status_q = "SELECT * FROM temp_status"
@@ -223,7 +223,7 @@ def pycalcs():
         habitTime = habitTime + 10
         habitLocation_q = "SELECT placename, latitude, longitude, radius FROM habitlocations WHERE locationid = '" + str(habitBuilding_index) + "'"
         habitLocation = db.execute(habitLocation_q).fetchall()
-        print("HEREEE WE AARRREEE")
+        #print("HEREEE WE AARRREEE")
         print(habitLocation)
         habit_x = 111111 * math.cos(habitLocation[0][1])
         habit_y = 111111 * habitLocation[0][2]
@@ -329,12 +329,7 @@ def home():
 def signup():
     return render_template("signup.html")
 
-@app.route("/signedin")
-def signedin():
-    if session.get('signed_in'):
-        return ("COMING SOON")
-    else:
-        return ("WORK IN PROGRESS")
+
 
 @app.route("/api/generate", methods = ["GET"])
 def generate_hash_key():
